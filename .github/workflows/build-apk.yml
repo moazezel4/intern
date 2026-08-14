@@ -17,8 +17,9 @@ jobs:
       run: |
         unzip -o *.zip -d ./app-files
         mkdir www
-        cp -r ./app-files/* ./www/
-        rm -rf ./www/.github ./www/android
+        # index.html dosyasını içeren klasörü bul ve içeriğini www'ye taşı
+        INDEX_DIR=$(find ./app-files -name "index.html" -exec dirname {} \;)
+        cp -r $INDEX_DIR/* ./www/
 
     - name: Set up Java JDK
       uses: actions/setup-java@v4
