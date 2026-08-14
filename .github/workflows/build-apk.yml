@@ -13,10 +13,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Unzip project
+    - name: Setup project structure
       run: |
         unzip -o *.zip -d ./app-files
-        cp -r ./app-files/* ./
+        mkdir www
+        cp -r ./app-files/* ./www/
+        # .github ve diğer sistem dosyalarını www'den temizle
+        rm -rf ./www/.github ./www/android
 
     - name: Set up Java JDK
       uses: actions/setup-java@v4
@@ -31,7 +34,7 @@ jobs:
       run: |
         npm init -y
         npm install @capacitor/core @capacitor/cli @capacitor/android
-        npx cap init "Acil Asistani" "com.eai.acilasistani" --web-dir .
+        npx cap init "Acil Asistani" "com.eai.acilasistani" --web-dir www
         npx cap add android
         npx cap copy android
         cd android
