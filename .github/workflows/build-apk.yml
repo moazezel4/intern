@@ -15,12 +15,14 @@ jobs:
 
     - name: Unzip project
       run: |
-        unzip -o acil-asistani--er-intern-companion.zip -d ./app-files
-        if [ -d "./app-files/acil-asistani--er-intern-companion" ]; then
-          cp -r ./app-files/acil-asistani--er-intern-companion/* ./
-        else
-          cp -r ./app-files/* ./
-        fi
+        ls -la
+        # Klasördeki ilk zip dosyasını bul ve aç
+        ZIP_FILE=$(ls *.zip | head -n 1)
+        echo "Bulunan dosya: $ZIP_FILE"
+        unzip -o "$ZIP_FILE" -d ./app-files
+        
+        # Dosyaları ana dizine kopyala
+        cp -r ./app-files/* ./
 
     - name: Set up Java JDK
       uses: actions/setup-java@v4
