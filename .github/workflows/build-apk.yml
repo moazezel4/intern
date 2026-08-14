@@ -16,10 +16,19 @@ jobs:
     - name: Setup project structure
       run: |
         unzip -o *.zip -d ./app-files
-        mkdir www
-        # index.html dosyasını içeren klasörü bul ve içeriğini www'ye taşı
-        INDEX_DIR=$(find ./app-files -name "index.html" -exec dirname {} \;)
-        cp -r $INDEX_DIR/* ./www/
+        mkdir -p www
+        
+        # index.html dosyasının bulunduğu tam klasörü tespit et
+        INDEX_PATH=$(find ./app-files -name "index.html" | head -n 1)
+        INDEX_DIR=$(dirname "$INDEX_PATH")
+        
+        echo "Bulunan HTML Klasörü: $INDEX_DIR"
+        
+        # O klasördeki tüm içerikleri doğrudan www klasörüne kopyala
+        cp -r "$INDEX_DIR"/* ./www/
+        
+        echo "--- WWW KLASÖRÜ İÇERİĞİ ---"
+        ls -la ./www
 
     - name: Set up Java JDK
       uses: actions/setup-java@v4
