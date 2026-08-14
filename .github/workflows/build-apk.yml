@@ -29,10 +29,11 @@ jobs:
 
     - name: Build Web App to APK via Capacitor
       run: |
-        npm install -g @capacitor/cli @capacitor/core @capacitor/android
+        npm init -y
+        npm install @capacitor/core @capacitor/cli @capacitor/android
         npx cap init "Acil Asistani" "com.eai.acilasistani" --web-dir .
         npx cap add android
-        npx cap copy
+        npx cap copy android
         cd android
         chmod +x gradlew
         ./gradlew assembleDebug
