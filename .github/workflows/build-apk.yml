@@ -18,13 +18,12 @@ jobs:
         unzip -o *.zip -d ./app-files
         mkdir www
         cp -r ./app-files/* ./www/
-        # .github ve diğer sistem dosyalarını www'den temizle
         rm -rf ./www/.github ./www/android
 
     - name: Set up Java JDK
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'temurin'
 
     - name: Setup Android SDK
